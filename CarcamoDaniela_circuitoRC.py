@@ -78,7 +78,12 @@ for i in range(itera):
 plt.figure()
 plt.scatter(R1,C1)
 #plt.scatter(archivo[:,0],archivo[:,1])
+plt.figure()
+plt.scatter(R1,-np.log(L1))
+plt.figure()
+plt.scatter(C1,-np.log(L1))
 plt.show()
+
 #plt.savefig("CargaRC.pdf")
 
 
