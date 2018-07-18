@@ -7,7 +7,6 @@ print N
 C=0
 v0=10
 RCal=np.ones(N[0])
-qmax=v0*C
 chi=0
 nuevo=0
 
@@ -22,7 +21,7 @@ def El(chi):
 	return L
 
 def nuevoModelo(tiempo,R,C):
-	y=qmax*(1-np.exp(-tiempo/(R*C)))
+	y=v0*C*(1-np.exp(-tiempo/(R*C)))
 	return y
 
 
@@ -32,8 +31,8 @@ C1=np.ones(itera)
 L1=np.ones(itera)
 j=0
 while(j<itera):
-	R1[j]=random.random(0,20)
-	C1[j]=random.random(0,20)
+	R1[j]=np.random.rand(1)*20
+	C1[j]=np.random.rand(1)*20
 	j+=1
 j=0
 
@@ -44,6 +43,19 @@ for i in range(N[0]):
 chi1=Chi(yinicial,archivo[:,1],chi)
 L1[0]=El(chi1)
 
+for i in range(itera):
+	Rprim=np.random.normal(R1[i],0.1)
+	Cprim=np.random.normal(C1[i],0.1)
+	
+	yprimo1=np.ones(N[0])
+	yinicial=np.ones(N[0])
+	for k in range(N[0]):
+		yinicial[k]=nuevoModelo(archivo[k,0],R1[k],C1[k])
+		yprimo1[k]=nuevoModelo(archivo[k,0],Rprim,Cprim)
+	chiI=Chi(yinicial,archivo[:,1],chi)
+	chiprim=Chi(yprimo1,archivo[:,1],chi)
+	lini=El(chiI)
+	lprim=El(chiprim)
 
 
 
