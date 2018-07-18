@@ -21,7 +21,7 @@ def El(chin1):
 	return L
 def nuevoModelo(tiempo,R,C):
 	y=0
-	y=(v0*C)-(v0*C)*(-np.exp(-tiempo/(R*C)))
+	y=(v0*C)*(1-np.exp(-tiempo/(R*C)))
 	#print -tiempo/(R*C)
 	return y
 
@@ -77,8 +77,18 @@ for i in range(itera):
 
 plt.figure()
 final=np.ones(N[0])
+for i in range(N[0]-1):
+	Lmejor=L1[i]
+	if (Lmejor>=L1[i+1]):
+		Rmejor=R1[i]
+		Cmejor=C1[i]
+	else:
+		Lmejor=L1[i+1]
+		Rmejor=R1[i+1]
+		Cmejor=C1[i+1]
+
 for i in range(N[0]):
-	final[i]=nuevoModelo(archivo[i,0],R1[N[0]],C1[N[0]])
+	final[i]=nuevoModelo(archivo[i,0],Rmejor,Cmejor)
 plt.plot(archivo[:,0],final)
 plt.scatter(archivo[:,0],archivo[:,1])
 #plt.figure()
