@@ -96,7 +96,7 @@ plt.scatter(archivo[:,0],archivo[:,1])
 #plt.scatter(R1,-np.log(L1))
 #plt.figure()
 #plt.scatter(C1,-np.log(L1))
-#plt.show()
+#plt.show()d
 plt.savefig("CargaRC.pdf")
 
 
