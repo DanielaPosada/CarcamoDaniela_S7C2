@@ -76,7 +76,10 @@ for i in range(itera):
 
 
 plt.figure()
-plt.scatter(R1[N[0]],C1[N[0]])
+final=np.ones(N[0])
+for i in range(N[0]):
+	final[i]=nuevoModelo(archivo[i,0],R1[N[0]],C1[N[0]])
+plt.plot(archivo[:,0],final)
 plt.scatter(archivo[:,0],archivo[:,1])
 #plt.figure()
 #plt.scatter(R1,-np.log(L1))
