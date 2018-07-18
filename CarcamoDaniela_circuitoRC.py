@@ -7,21 +7,21 @@ print N
 C=0
 v0=10
 RCal=np.ones(N[0])
-nuevo=0
 
 def Chi(calculado,original):
 	chin=0
+	#nuevo=0
 	for i in range(N[0]):
 		nuevo=(calculado[i]-original[i])**2
 		chin=nuevo+chin
-	return chin
+	return chin/10000
 def El(chin1):
 	L=0
 	L=np.exp(-0.5*chin1)
 	return L
 def nuevoModelo(tiempo,R,C):
 	y=0
-	y=v0*C*(1-np.exp(-tiempo/(R*C)))
+	y=(v0*C)-(v0*C)*(-np.exp(-tiempo/(R*C)))
 	#print -tiempo/(R*C)
 	return y
 
@@ -62,13 +62,24 @@ for i in range(itera):
 		R1[i]=Rprim
 		C1[i]=Cprim
 		L1[i]=lprim
+	else:
+		b=np.random.rand(1)
+		if (b<=alfa):
+			R1[i]=Rprim
+			C1[i]=Cprim
+			L1[i]=lprim
+		else:
+			R1[i]=R1[i]
+			C1[i]=C1[i]
+			L1[i]=lini
 
 
 
 plt.figure()
-plt.scatter(archivo[:,0],archivo[:,1])
-#plt.show()
-plt.savefig("CargaRC.pdf")
+plt.scatter(R1,C1)
+#plt.scatter(archivo[:,0],archivo[:,1])
+plt.show()
+#plt.savefig("CargaRC.pdf")
 
 
 
