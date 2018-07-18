@@ -7,21 +7,22 @@ print N
 C=0
 v0=10
 RCal=np.ones(N[0])
-chi=0
 nuevo=0
 
-def Chi(calculado,original,chin):
+def Chi(calculado,original):
+	chin=0
 	for i in range(N[0]):
 		nuevo=(calculado[i]-original[i])**2
 		chin=nuevo+chin
 	return chin
-
-def El(chi):
-	L=np.exp(-0.5*chi)
+def El(chin1):
+	L=0
+	L=np.exp(-0.5*chin1)
 	return L
-
 def nuevoModelo(tiempo,R,C):
+	y=0
 	y=v0*C*(1-np.exp(-tiempo/(R*C)))
+	#print -tiempo/(R*C)
 	return y
 
 
@@ -40,7 +41,7 @@ yinicial=np.ones(N[0])
 for i in range(N[0]):
 	yinicial[i]=nuevoModelo(archivo[i,0],R1[0],C1[0])
 
-chi1=Chi(yinicial,archivo[:,1],chi)
+chi1=Chi(yinicial,archivo[:,1])
 L1[0]=El(chi1)
 
 for i in range(itera):
@@ -52,12 +53,15 @@ for i in range(itera):
 	for k in range(N[0]):
 		yinicial[k]=nuevoModelo(archivo[k,0],R1[k],C1[k])
 		yprimo1[k]=nuevoModelo(archivo[k,0],Rprim,Cprim)
-	chiI=Chi(yinicial,archivo[:,1],chi)
-	chiprim=Chi(yprimo1,archivo[:,1],chi)
+	chiI=Chi(yinicial,archivo[:,1])
+	chiprim=Chi(yprimo1,archivo[:,1])
 	lini=El(chiI)
 	lprim=El(chiprim)
-
-
+	alfa=lprim/lini
+	if (alfa>=1.0):
+		R1[i]=Rprim
+		C1[i]=Cprim
+		L1[i]=lprim
 
 
 
